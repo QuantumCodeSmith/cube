@@ -11,9 +11,13 @@ clear;
 
 
 getdata();
-output = ans.data{1,1};
-band64 = output(:,64,:);
-band64 = reshape(band64, 520, 696);
+raw_output = ans.data{1,1};
+% Compute the mean along the third dimension (128 bands)
+averageImage = mean(raw_output, 2);
+% Reshape the result to be a 520x696 greyscale image
+averageImage = squeeze(averageImage);  % Removes the length 1 dimension
+imshow(averageImage, []);
+
 
 function [cube] = getdata()
   % settings
