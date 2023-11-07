@@ -12,12 +12,40 @@ clear;
 
 getdata();
 raw_output = ans.data{1,1};
-% Compute the mean along the third dimension (128 bands)
+% Compute the mean along the 2nd dimension (128 bands)
 averageImage = mean(raw_output, 2);
 % Reshape the result to be a 520x696 greyscale image
 averageImage = squeeze(averageImage);  % Removes the length 1 dimension
-imshow(averageImage, []);
+figure(1)
+imshow(averageImage, []); %Greyscale image from averaging each band's activation
 
+% assume that bands 1-42 are red, 43-84 are green, 86-128 are blue
+red_bands = raw_output(:, 1:22, :);
+green_bands = raw_output(:, 23:43, :);
+blue_bands = raw_output(:, 44:60, :);
+%compute the average along the 2nd dimension of each band
+red_bands = mean(red_bands, 2);
+green_bands = mean(green_bands, 2);
+blue_bands = mean(blue_bands, 2);
+% reshape the result to be a 520x696 image for each
+red_bands = squeeze(red_bands);
+green_bands = squeeze(green_bands);
+blue_bands = squeeze(blue_bands);
+
+% Normalize the bands to [0, 1] for each channel
+red_bands = (red_bands - min(red_bands(:))) / (max(red_bands(:)) - min(red_bands(:)));
+green_bands = (green_bands - min(green_bands(:))) / (max(green_bands(:)) - min(green_bands(:)));
+blue_bands = (blue_bands - min(blue_bands(:))) / (max(blue_bands(:)) - min(blue_bands(:)));
+
+% Combine the three channels into a color image
+colorImage = cat(3, red_bands, green_bands, blue_bands);
+
+% Display the color image
+figure(2)
+imshow(colorImage);
+
+% If you want to save the color image to a file
+imwrite(colorImage, 'color_image.png');
 
 function [cube] = getdata()
   % settings
