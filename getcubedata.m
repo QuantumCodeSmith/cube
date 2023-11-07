@@ -9,9 +9,11 @@ clear;
 %   Follow prompts
 %   File names and data are saved in structure called 'cube'
 
-
+%% Run function for output
 getdata();
 raw_output = ans.data{1,1};
+
+%% Find Greyscale Image
 % Compute the mean along the 2nd dimension (128 bands)
 averageImage = mean(raw_output, 2);
 % Reshape the result to be a 520x696 greyscale image
@@ -19,6 +21,7 @@ averageImage = squeeze(averageImage);  % Removes the length 1 dimension
 figure(1)
 imshow(averageImage, []); %Greyscale image from averaging each band's activation
 
+%% Find Color Image
 % assume that bands 1-42 are red, 43-84 are green, 86-128 are blue
 red_bands = raw_output(:, 1:22, :);
 green_bands = raw_output(:, 23:43, :);
@@ -38,15 +41,20 @@ green_bands = (green_bands - min(green_bands(:))) / (max(green_bands(:)) - min(g
 blue_bands = (blue_bands - min(blue_bands(:))) / (max(blue_bands(:)) - min(blue_bands(:)));
 
 % Combine the three channels into a color image
-colorImage = cat(3, red_bands, green_bands, blue_bands);
+colorImage = cat(3, blue_bands, green_bands, red_bands);
 
 % Display the color image
 figure(2)
 imshow(colorImage);
 
+hold on
+plot(490, 245, 'r*', 'MarkerSize', 10); % Adds marker for our target
+
+
 % If you want to save the color image to a file
 imwrite(colorImage, 'color_image.png');
 
+%% Get photo Data to a matrix
 function [cube] = getdata()
   % settings
   header = 32768/2;
