@@ -13,6 +13,14 @@ clear;
 getdata();
 raw_output = ans.data{1,1};
 
+%% Get Hcube Object
+%Get output matrix into l*w*bands
+raw = permute(raw_output, [1,3,2]);
+%Get list of all wavelength bands
+wl = linspace(400,1000,128); %APPROXIMATION NEED TO GET HEADER FILE ASAP
+wl = wl';
+hcube = hypercube(raw, wl);
+hyperspectralViewer(hcube);
 %% Find Greyscale Image
 % Compute the mean along the 2nd dimension (128 bands)
 averageImage = mean(raw_output, 2);

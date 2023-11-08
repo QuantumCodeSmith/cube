@@ -13,6 +13,9 @@ clear;
 getdata();
 raw_output = ans.data{1,1};
 
+%% Get Hcube Object
+raw = permute(raw_output, [1,3,2]);
+
 %% Find Greyscale Image
 % Compute the mean along the 2nd dimension (128 bands)
 averageImage = mean(raw_output, 2);
@@ -48,7 +51,7 @@ figure(2)
 imshow(colorImage);
 
 hold on
-plot(260, 465, 'r*', 'MarkerSize', 10); % Adds marker for i
+plot(490, 245, 'r*', 'MarkerSize', 10); % Adds marker for our target
 
 
 % If you want to save the color image to a file
