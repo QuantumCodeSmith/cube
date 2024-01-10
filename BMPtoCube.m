@@ -5,7 +5,7 @@ wavelengths = linspace(420, 1000, 145);
 wavelengths = wavelengths';
 
 % Specify the path to the main folder containing subfolders
-mainFolderPath = '/Users/kasik2/Downloads/Images M101_M110';
+mainFolderPath = '/Users/kasik2/Downloads/Database of hyperspectral images of phosphorus in soil/Images M141_M152';
 
 % Get a list of all subfolders in the main folder
 subfolders = dir(fullfile(mainFolderPath, '*'));
@@ -61,7 +61,7 @@ for j = 1:numel(subfolderPaths)
 
 
     hcube = hypercube(allImageData, wavelengths);
-    path = "/Users/kasik2/Documents/Hcube Soil/" + string(subfolderPaths{j}(end-3:end)) + ".mat";
+    path = "/Users/kasik2/Documents/Hcube Soil Full/" + string(subfolderPaths{j}(end-3:end)) + ".mat"
     save(path, 'hcube')
 end
 
