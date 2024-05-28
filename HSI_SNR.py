@@ -85,13 +85,13 @@ def plot_snr_graph(dataframe):
     plt.figure(figsize=(10, 6))
     plt.plot(dataframe['Wavelength'], dataframe['SNR'], marker='o', linestyle='-', color='b')
     plt.axhline(y=dataframe['SNR'].mean(), color='r', linestyle='--', label=f'Average SNR: {dataframe["SNR"].mean():.2f}')  # Horizontal dashed line at the average SNR with label
-    plt.title('SNR vs Wavelength White 1 Light 2.8F')
+    plt.title('SNR vs Wavelength')
     plt.xlabel('Wavelength')
     plt.ylabel('SNR')
     plt.ylim(0, 130)  # Set y-axis range from 0 to 30
     plt.legend()
     plt.grid(True)
-    plt.savefig("/Users/kasik2/Documents/2_27 and 3_1 Camera Session/1 light/SNR vs Wavelength White 1 Light 2.8F.png", bbox_inches='tight')
+    plt.savefig("/Users/kasik2/Documents/Lipstick_Sunscreen Images/Lipstick 1/SNR.png", bbox_inches='tight')
 
     plt.show()
 
@@ -122,11 +122,11 @@ def plot_std_comparison(file1, file2):
 
 
 # Replace "your_folder_path" with the actual folder path
-white_list = process_files_in_folder("/Users/kasik2/Documents/2_27 and 3_1 Camera Session/2 lights")
+white_list = process_files_in_folder("/Users/kasik2/Documents/Lipstick_Sunscreen Images/Lipstick 1")
 
 # Replace "output_merged.csv" with the desired output file path
 merged_df = merge_and_save(white_list, "/Users/kasik2/Documents/2_27 and 3_1 Camera Session/2 lights/white.csv")
 
-#plot_snr_graph(merged_df)
+plot_snr_graph(white)
 
 
